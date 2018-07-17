@@ -52,24 +52,22 @@ public class User {
 
     public String getPassword() {
 
-        // I cheated... convert the password to a bcrypt password coming out.
-        // Stored in Db in clear text. Don't try this in production.
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(password);
-        System.out.println(hashedPassword);
-        this.password = hashedPassword;
+        // If the password is stored in clear text in the database the
+        // uncomment the following 4 lines to convert the password to a bcrypt password.
+        //PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        //String hashedPassword = passwordEncoder.encode(password);
+        //System.out.println(hashedPassword);
+        //this.password = hashedPassword;
         return password;
     }
 
     public void setPassword(String password) {
-
-        /*
+        //use the password encoder to encypt a password before storing it
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
         System.out.println(hashedPassword);
         this.password = hashedPassword;
-        */
-        this.password = password;
+        //this.password = password;
     }
 
     public String getFirstName() {
