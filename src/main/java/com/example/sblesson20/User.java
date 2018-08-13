@@ -24,7 +24,7 @@ public class User {
     private String lastName;
 
     @Column(name = "enabled")
-    private String enabled;
+    private boolean enabled;
 
     @Column(name = "username")
     private String username;
@@ -33,6 +33,18 @@ public class User {
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+
+    public User() {
+    }
+
+    public User(String email, String password, String firstName, String lastName, boolean enabled, String username) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.enabled = enabled;
+        this.username = username;
+    }
 
     public long getId() {
         return id;
@@ -51,23 +63,11 @@ public class User {
     }
 
     public String getPassword() {
-
-        // If the password is stored in clear text in the database the
-        // uncomment the following 4 lines to convert the password to a bcrypt password.
-        //PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        //String hashedPassword = passwordEncoder.encode(password);
-        //System.out.println(hashedPassword);
-        //this.password = hashedPassword;
         return password;
     }
 
     public void setPassword(String password) {
-        //use the password encoder to encypt a password before storing it
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(password);
-        System.out.println(hashedPassword);
-        this.password = hashedPassword;
-        //this.password = password;
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -86,11 +86,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEnabled() {
+    public boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(String enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 

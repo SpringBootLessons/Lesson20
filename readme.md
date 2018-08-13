@@ -7,9 +7,9 @@ Sample data is below. You can paste this into localhost:8080/h2 after the first 
 ```sql
 insert into role values (1,'USER');
 insert into role values (2, 'ADMIN');
-insert into USER values (1, 'jim@jim.com', TRUE, 'Jim', 'Jimmerson', '$2a$10$UiEzkUUnqIUZ/G.TkBvGseoMM.1SnyDtKI0bilHnMhpwj0ZWoocIG', 'jim');
-insert into USER values (2, 'bob@bob.com', TRUE, 'Bob', 'Bobberson', '$2a$10$UiEzkUUnqIUZ/G.TkBvGseoMM.1SnyDtKI0bilHnMhpwj0ZWoocIG', 'bob');
-insert into USER values (3, 'admin@admin.com', TRUE, 'Admin', 'User', '$2a$10$yN/fZnL7rCHgkM3BSjbfQ.KPe.5IxvuwnaDvFnbbJwi7S/JvhYXY.', 'admin');
+insert into USER values (1, 'jim@jim.com', TRUE, 'Jim', 'Jimmerson', 'password', 'jim');
+insert into USER values (2, 'bob@bob.com', TRUE, 'Bob', 'Bobberson', 'password', 'bob');
+insert into USER values (3, 'admin@admin.com', TRUE, 'Admin', 'User', 'password', 'admin');
 insert into USER_ROLES values (1,1);
 insert into USER_ROLES values (2,1);
 insert into USER_ROLES values (3,1);
