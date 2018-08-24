@@ -16,36 +16,36 @@ import java.util.Set;
 
 public class SSUserDetailsService implements UserDetailsService{
 
-    private UserRepository userRepository;
+    private AppUserRepository appUserRepository;
 
-    public SSUserDetailsService(UserRepository userRepository){
-        this.userRepository=userRepository;
+    public SSUserDetailsService(AppUserRepository userRepository){
+        this.appUserRepository=userRepository;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String appUsername) throws UsernameNotFoundException{
         try {
-            User user = userRepository.findByUsername(username);
-            if (user == null) {
-                System.out.println("User not found with the provided username" + user.toString());
+            AppUser appUser = appUserRepository.findByUsername(appUsername);
+            if (appUser == null) {
+                System.out.println("User not found with the provided username" + appUser.toString());
                 return null;
             }
 
-            System.out.println(" User from username " + user.toString());
+            System.out.println(" User from username " + appUser.toString());
 
             return new org.springframework.security.core.userdetails.User(
-                    user.getUsername(),
-                    user.getPassword(),
-                    getAuthorities(user));
+                    appUser.getUsername(),
+                    appUser.getPassword(),
+                    getAuthorities(appUser));
         } catch (Exception e){
             throw new UsernameNotFoundException("User not found");
         }
     }
 
-    private Set<GrantedAuthority> getAuthorities(User user) {
+    private Set<GrantedAuthority> getAuthorities(AppUser appUser) {
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-        for (Role role : user.getRoles()) {
-            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getRole());
+        for (AppRole role : appUser.getAppRoles()) {
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getAppRole());
             authorities.add(grantedAuthority);
         }
         System.out.println("User authorities are" + authorities.toString());

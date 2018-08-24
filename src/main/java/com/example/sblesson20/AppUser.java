@@ -1,12 +1,10 @@
 package com.example.sblesson20;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -32,12 +30,12 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
+    private Collection<AppRole> appRoles;
 
-    public User() {
+    public AppUser() {
     }
 
-    public User(String email, String password, String firstName, String lastName, boolean enabled, String username) {
+    public AppUser(String email, String password, String firstName, String lastName, boolean enabled, String username) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -102,16 +100,16 @@ public class User {
         this.username = username;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
+    public Collection<AppRole> getAppRoles() {
+        return appRoles;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
+    public void setAppRoles(Collection<AppRole> appRoles) {
+        this.appRoles = appRoles;
     }
 
-    public void addRole(Role role)
+    public void addRole(AppRole appRole)
     {
-        this.roles.add(role);
+        this.appRoles.add(appRole);
     }
 }

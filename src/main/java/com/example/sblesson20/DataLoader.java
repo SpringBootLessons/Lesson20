@@ -11,10 +11,10 @@ import java.util.Arrays;
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
-    UserRepository userRepository;
+    AppUserRepository appUserRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    AppRoleRepository appRoleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -23,34 +23,35 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... strings) throws Exception{
         System.out.println("Loading data...");
 
-        roleRepository.save(new Role("USER"));
-        roleRepository.save(new Role("ADMIN"));
+        appRoleRepository.save(new AppRole("USER"));
+        appRoleRepository.save(new AppRole("ADMIN"));
 
-        Role adminRole = roleRepository.findByRole("ADMIN");
-        Role userRole = roleRepository.findByRole("USER");
+        AppRole adminAppRole = appRoleRepository.findByAppRole("ADMIN");
+        AppRole userAppRole = appRoleRepository.findByAppRole("USER");
 
-        User user = new
-                User("bob@bob.com", "password", "Bob", "Bobberson", true, "bob");
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList(userRole));
-        userRepository.save(user);
+        AppUser appUser = new
+                AppUser("bob@bob.com", "password", "Bob", "Bobberson", true, "bob");
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        appUser.setAppRoles(Arrays.asList(userAppRole));
+        appUserRepository.save(appUser);
 
-        user = new
-                User("jim@jim.com", "password", "Jim", "Jimmerson", true, "jim");
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList(userRole));
-        userRepository.save(user);
+        appUser = new
+                AppUser("jim@jim.com", "password", "Jim", "Jimmerson", true, "jim");
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        appUser.setAppRoles(Arrays.asList(userAppRole));
+        appUserRepository.save(appUser);
 
-        user = new
-                User("admin@adm.com", "password", "Admin", "User", true, "admin");
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList(adminRole));
-        userRepository.save(user);
+        appUser = new
+                AppUser("sam@ev.com","password","Sam","Everyman",true,"sam");
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        appUser.setAppRoles(Arrays.asList(userAppRole));
+        appUserRepository.save(appUser);
 
-        user = new
-                User("sam@ev.com","password","Sam","Everyman",true,"sam");
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList(userRole, adminRole));
-        userRepository.save(user);
+        appUser = new
+                AppUser("admin@adm.com", "password", "Admin", "User", true, "admin");
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        appUser.setAppRoles(Arrays.asList(adminAppRole));
+        appUserRepository.save(appUser);
+
     }
 }
